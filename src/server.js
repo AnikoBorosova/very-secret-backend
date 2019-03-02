@@ -52,5 +52,5 @@ app.listen(PORT, err => {
 		return console.error("Error while starting server:", err);
 	}
 
-	console.log(`Server is listening on PORT ${PORT}`, app);
+	console.log(`Server is listening on PORT ${PORT}`);
 });
