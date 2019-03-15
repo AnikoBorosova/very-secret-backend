@@ -6,8 +6,16 @@ const cors = require('cors');
 const express = require("express");
 let app = express();
 
-app.use(cors());
-app.options('*', cors());
+
+
+const corsObj = cors({
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+});
+
+app.options('*', corsObj);
+app.use(corsObj);
+
 
 const PORT = process.env.PORT || 4001;
 
@@ -31,12 +39,20 @@ app.use(bodyParser.json({
 }));
 
 
+
+//require("./routes/registration")({ app });
 //app.use("/expenses", cors({origin: 'http://localhost:8080'}));
 
-app.post("/expenses", (req, res) => {
-	const requestIn = req;
-	console.log("REQ", requestIn);
+app.post("/registration", (req, res) => {
+	const userData = req.body;
 
+	res.status(200).json({
+		result: "USERDATA ARRIVED SUCCESSFULLY"
+	});
+
+});
+
+app.post("/expenses", (req, res) => {
 	const reqBody = req.body;
 	console.log("REQUEST BODY", reqBody);
 
@@ -44,7 +60,7 @@ app.post("/expenses", (req, res) => {
 
 	res.status(200).json({
 		result: "Communication between client-side and server is working"
-	})
+	});
 });
 
 app.listen(PORT, err => {
