@@ -45,12 +45,30 @@ app.use(bodyParser.json({
 
 app.post("/registration", (req, res) => {
 	const userData = req.body;
+	console.log("USERDATA", userData);
 
 	res.status(200).json({
-		result: "USERDATA ARRIVED SUCCESSFULLY"
+		result: "USERDATA ARRIVED SUCCESSFULLY", userData
 	});
 
 });
+
+app.post("/registration/checkDuplicateUsername", (req, res) => {
+	const username = req.body;
+
+	res.status(200).send({
+		userExists: false
+	});
+});
+
+app.post("/registration/checkDuplicateEmail", (req, res) => {
+	const email = req.body;
+
+	res.status(200).send({
+		emailExists: false
+	})
+});
+
 
 app.post("/expenses", (req, res) => {
 	const reqBody = req.body;
